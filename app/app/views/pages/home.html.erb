@@ -1,0 +1,45 @@
+<%= javascript_pack_tag 'root' %>
+</br>
+</br>
+<div>
+  <%if @result!=nil%>
+    <%flag = 0%>
+    <%@result.keys().each do |key|%>
+      <% if @result[key].length>0 %>
+        <%flag = 1%>
+        <% tmp = @result[key]%>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"><%=key%> results</th>
+              <%tmp[0].keys().each do |title|%>
+                <%if title!='matching_terms' and title!='id'%>
+                <th scope="col"><%=title%></th>
+                <%end%>
+              <%end%>
+            </tr>
+          </thead>
+          <tbody>
+            <%count = 1%>
+            <%tmp.each do |item|%>
+              <tr>
+              <th scope="row"><%=count%></th>
+              <%item.keys().each do |subkey|%>
+                <%if subkey!='matching_terms' and subkey!='id'%>
+                <td><%=item[subkey]%></td>
+                <%end%>
+              <%end%>
+              </tr>
+              <%count+=1%>
+            <%end%>
+          </tbody>
+        </table>
+      <% end %>
+    <% end%>
+    <%if flag==0%>
+      <h2>Sorry, no results found</h2>
+    <%end%>
+  <% end %>
+</div>
+<%= content_tag :div, id:"pref_data", data:@userPref.to_json do%>
+<%end%>

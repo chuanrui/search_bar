@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Term:</strong>
+  <%= @preference.term %>
+</p>
+
+<p>
+  <strong>Times:</strong>
+  <%= @preference.times %>
+</p>
+
+<p>
+  <strong>Users:</strong>
+  <%= @preference.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_preference_path(@preference) %> |
+<%= link_to 'Back', preferences_path %>
