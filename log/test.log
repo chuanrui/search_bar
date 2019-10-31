@@ -1,0 +1,534 @@
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "preferences"[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "preferences" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "term" varchar, "times" integer, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE  INDEX "index_preferences_on_user_id" ON "preferences" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar, "fullname" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "password_digest" varchar)[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "apreferences" ("id" integer NOT NULL PRIMARY KEY, "term" varchar DEFAULT NULL, "times" integer DEFAULT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_apreferences_on_user_id" ON "apreferences" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "apreferences" ("id","term","times","user_id","created_at","updated_at")
+                     SELECT "id","term","times","user_id","created_at","updated_at" FROM "preferences"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "preferences"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "preferences" ("id" integer NOT NULL PRIMARY KEY, "term" varchar DEFAULT NULL, "times" integer DEFAULT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_87f1c9c7bd"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_preferences_on_user_id" ON "preferences" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "preferences" ("id","term","times","user_id","created_at","updated_at")
+                     SELECT "id","term","times","user_id","created_at","updated_at" FROM "apreferences"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "apreferences"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20191029040633)[0m
+  [1m[35m (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20191029035804),
+(20191029035900);
+
+[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "test"], ["created_at", "2019-10-30 15:17:02.509970"], ["updated_at", "2019-10-30 15:17:02.509970"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "a1d8657062bc112ecb251973525c0fa2f83daad9"], ["created_at", "2019-10-30 15:17:02.513668"], ["updated_at", "2019-10-30 15:17:02.513668"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "preferences"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "preferences"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "preferences"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "preferences"[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "preferences" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "term" varchar, "times" integer, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "preferences" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "term" varchar, "times" integer, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "preferences" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "term" varchar, "times" integer, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE TABLE "preferences" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "term" varchar, "times" integer, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE  INDEX "index_preferences_on_user_id" ON "preferences" ("user_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX "index_preferences_on_user_id" ON "preferences" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX "index_preferences_on_user_id" ON "preferences" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE  INDEX "index_preferences_on_user_id" ON "preferences" ("user_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar, "fullname" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "password_digest" varchar)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar, "fullname" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "password_digest" varchar)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar, "fullname" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "password_digest" varchar)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar, "fullname" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "password_digest" varchar)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TEMPORARY TABLE "apreferences" ("id" integer NOT NULL PRIMARY KEY, "term" varchar DEFAULT NULL, "times" integer DEFAULT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "apreferences" ("id" integer NOT NULL PRIMARY KEY, "term" varchar DEFAULT NULL, "times" integer DEFAULT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_apreferences_on_user_id" ON "apreferences" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "apreferences" ("id" integer NOT NULL PRIMARY KEY, "term" varchar DEFAULT NULL, "times" integer DEFAULT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "apreferences" ("id" integer NOT NULL PRIMARY KEY, "term" varchar DEFAULT NULL, "times" integer DEFAULT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "apreferences" ("id","term","times","user_id","created_at","updated_at")
+                     SELECT "id","term","times","user_id","created_at","updated_at" FROM "preferences"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_apreferences_on_user_id" ON "apreferences" ("user_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "preferences"[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "apreferences" ("id","term","times","user_id","created_at","updated_at")
+                     SELECT "id","term","times","user_id","created_at","updated_at" FROM "preferences"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_apreferences_on_user_id" ON "apreferences" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_apreferences_on_user_id" ON "apreferences" ("user_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "preferences"[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "apreferences" ("id","term","times","user_id","created_at","updated_at")
+                     SELECT "id","term","times","user_id","created_at","updated_at" FROM "preferences"[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "apreferences" ("id","term","times","user_id","created_at","updated_at")
+                     SELECT "id","term","times","user_id","created_at","updated_at" FROM "preferences"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "preferences"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "preferences"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "preferences" ("id" integer NOT NULL PRIMARY KEY, "term" varchar DEFAULT NULL, "times" integer DEFAULT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_87f1c9c7bd"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "preferences" ("id" integer NOT NULL PRIMARY KEY, "term" varchar DEFAULT NULL, "times" integer DEFAULT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_87f1c9c7bd"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "preferences" ("id" integer NOT NULL PRIMARY KEY, "term" varchar DEFAULT NULL, "times" integer DEFAULT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_87f1c9c7bd"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_preferences_on_user_id" ON "preferences" ("user_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "preferences" ("id" integer NOT NULL PRIMARY KEY, "term" varchar DEFAULT NULL, "times" integer DEFAULT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_87f1c9c7bd"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "preferences" ("id","term","times","user_id","created_at","updated_at")
+                     SELECT "id","term","times","user_id","created_at","updated_at" FROM "apreferences"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_preferences_on_user_id" ON "preferences" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "apreferences"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_preferences_on_user_id" ON "preferences" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "preferences" ("id","term","times","user_id","created_at","updated_at")
+                     SELECT "id","term","times","user_id","created_at","updated_at" FROM "apreferences"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_preferences_on_user_id" ON "preferences" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "apreferences"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "preferences" ("id","term","times","user_id","created_at","updated_at")
+                     SELECT "id","term","times","user_id","created_at","updated_at" FROM "apreferences"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "preferences" ("id","term","times","user_id","created_at","updated_at")
+                     SELECT "id","term","times","user_id","created_at","updated_at" FROM "apreferences"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "apreferences"[0m
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "apreferences"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20191029040633)[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20191029040633)[0m
+  [1m[35m (1.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20191029040633)[0m
+  [1m[35m (1.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20191029040633)[0m
+  [1m[35m (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20191029035804),
+(20191029035900);
+
+[0m
+  [1m[35m (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20191029035804),
+(20191029035900);
+
+[0m
+  [1m[35m (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20191029035804),
+(20191029035900);
+
+[0m
+  [1m[35m (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20191029035804),
+(20191029035900);
+
+[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "test"], ["created_at", "2019-10-30 15:17:07.863925"], ["updated_at", "2019-10-30 15:17:07.863925"]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "test"], ["created_at", "2019-10-30 15:17:07.864618"], ["updated_at", "2019-10-30 15:17:07.864618"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "test"], ["created_at", "2019-10-30 15:17:07.865113"], ["updated_at", "2019-10-30 15:17:07.865113"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "test"], ["created_at", "2019-10-30 15:17:07.865158"], ["updated_at", "2019-10-30 15:17:07.865158"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "a1d8657062bc112ecb251973525c0fa2f83daad9"], ["created_at", "2019-10-30 15:17:07.869363"], ["updated_at", "2019-10-30 15:17:07.869363"]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "a1d8657062bc112ecb251973525c0fa2f83daad9"], ["created_at", "2019-10-30 15:17:07.869872"], ["updated_at", "2019-10-30 15:17:07.869872"]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "a1d8657062bc112ecb251973525c0fa2f83daad9"], ["created_at", "2019-10-30 15:17:07.870671"], ["updated_at", "2019-10-30 15:17:07.870671"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "a1d8657062bc112ecb251973525c0fa2f83daad9"], ["created_at", "2019-10-30 15:17:07.870807"], ["updated_at", "2019-10-30 15:17:07.870807"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTruncate Tables (8.0ms)[0m  [1m[31mDELETE FROM "users";
+DELETE FROM "preferences"[0m
+  [1m[36mTruncate Tables (8.0ms)[0m  [1m[31mDELETE FROM "users";
+DELETE FROM "preferences"[0m
+  [1m[36mTruncate Tables (7.7ms)[0m  [1m[31mDELETE FROM "users";
+DELETE FROM "preferences"[0m
+  [1m[36mTruncate Tables (8.3ms)[0m  [1m[31mDELETE FROM "users";
+DELETE FROM "preferences"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixtures Load (0.5ms)[0m  [1m[31mDELETE FROM "preferences";
+DELETE FROM "users";
+INSERT INTO "preferences" ("id", "term", "times", "user_id", "created_at", "updated_at") VALUES (980190962, 'MyString', 1, 980190962, '2019-10-30 15:17:59.758623', '2019-10-30 15:17:59.758623');
+INSERT INTO "preferences" ("id", "term", "times", "user_id", "created_at", "updated_at") VALUES (298486374, 'MyString', 1, 298486374, '2019-10-30 15:17:59.758623', '2019-10-30 15:17:59.758623');
+INSERT INTO "users" ("id", "username", "fullname", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', '2019-10-30 15:17:59.761060', '2019-10-30 15:17:59.761060');
+INSERT INTO "users" ("id", "username", "fullname", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyString', '2019-10-30 15:17:59.761060', '2019-10-30 15:17:59.761060')[0m
+  [1m[36mFixtures Load (0.6ms)[0m  [1m[31mDELETE FROM "preferences";
+DELETE FROM "users";
+INSERT INTO "preferences" ("id", "term", "times", "user_id", "created_at", "updated_at") VALUES (980190962, 'MyString', 1, 980190962, '2019-10-30 15:17:59.759253', '2019-10-30 15:17:59.759253');
+INSERT INTO "preferences" ("id", "term", "times", "user_id", "created_at", "updated_at") VALUES (298486374, 'MyString', 1, 298486374, '2019-10-30 15:17:59.759253', '2019-10-30 15:17:59.759253');
+INSERT INTO "users" ("id", "username", "fullname", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', '2019-10-30 15:17:59.761814', '2019-10-30 15:17:59.761814');
+INSERT INTO "users" ("id", "username", "fullname", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyString', '2019-10-30 15:17:59.761814', '2019-10-30 15:17:59.761814')[0m
+  [1m[36mFixtures Load (0.7ms)[0m  [1m[31mDELETE FROM "preferences";
+DELETE FROM "users";
+INSERT INTO "preferences" ("id", "term", "times", "user_id", "created_at", "updated_at") VALUES (980190962, 'MyString', 1, 980190962, '2019-10-30 15:17:59.759081', '2019-10-30 15:17:59.759081');
+INSERT INTO "preferences" ("id", "term", "times", "user_id", "created_at", "updated_at") VALUES (298486374, 'MyString', 1, 298486374, '2019-10-30 15:17:59.759081', '2019-10-30 15:17:59.759081');
+INSERT INTO "users" ("id", "username", "fullname", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', '2019-10-30 15:17:59.761500', '2019-10-30 15:17:59.761500');
+INSERT INTO "users" ("id", "username", "fullname", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyString', '2019-10-30 15:17:59.761500', '2019-10-30 15:17:59.761500')[0m
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+-------------------------------
+UsersTest: test_creating_a_User
+-------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------
+UsersTest: test_destroying_a_User
+---------------------------------
+-------------------------------
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+UsersTest: test_updating_a_User
+-------------------------------
+  [1m[36mFixtures Load (0.5ms)[0m  [1m[31mDELETE FROM "preferences";
+DELETE FROM "users";
+INSERT INTO "preferences" ("id", "term", "times", "user_id", "created_at", "updated_at") VALUES (980190962, 'MyString', 1, 980190962, '2019-10-30 15:17:59.761543', '2019-10-30 15:17:59.761543');
+INSERT INTO "preferences" ("id", "term", "times", "user_id", "created_at", "updated_at") VALUES (298486374, 'MyString', 1, 298486374, '2019-10-30 15:17:59.761543', '2019-10-30 15:17:59.761543');
+INSERT INTO "users" ("id", "username", "fullname", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', '2019-10-30 15:17:59.764723', '2019-10-30 15:17:59.764723');
+INSERT INTO "users" ("id", "username", "fullname", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyString', '2019-10-30 15:17:59.764723', '2019-10-30 15:17:59.764723')[0m
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------
+UsersTest: test_visiting_the_index
+----------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/users" for 127.0.0.1 at 2019-10-30 11:18:01 -0400
+Processing by UsersController#index as HTML
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (Duration: 6.4ms | Allocations: 905)
+Started GET "/users" for 127.0.0.1 at 2019-10-30 11:18:02 -0400
+Processing by UsersController#index as HTML
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (3.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (Duration: 18.5ms | Allocations: 905)
+Started GET "/users" for 127.0.0.1 at 2019-10-30 11:18:02 -0400
+Processing by UsersController#index as HTML
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (Duration: 7.7ms | Allocations: 905)
+Started GET "/users" for 127.0.0.1 at 2019-10-30 11:18:02 -0400
+Processing by UsersController#index as HTML
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (Duration: 5.4ms | Allocations: 905)
+[Webpacker] Compiling…
+[Webpacker] Compiling…
+[Webpacker] Compiling…
+[Webpacker] Compiling…
+[Webpacker] Compiled all packs in /Users/chuanruizhu/Desktop/personal information/neeva/acme_search/public/packs-test
+Completed 500 Internal Server Error in 22008ms (ActiveRecord: 3.7ms | Allocations: 3853448)
+[Webpacker] Compiled all packs in /Users/chuanruizhu/Desktop/personal information/neeva/acme_search/public/packs-test
+Completed 200 OK in 22556ms (Views: 22520.3ms | ActiveRecord: 0.2ms | Allocations: 3854393)
+Started GET "/assets/application-38bcaf3016ad2a84e32fb303e76e77a8141133238eb9d14d40c1cceea0bddc0d.css" for 127.0.0.1 at 2019-10-30 11:18:24 -0400
+[Webpacker] Compiled all packs in /Users/chuanruizhu/Desktop/personal information/neeva/acme_search/public/packs-test
+Completed 200 OK in 21982ms (Views: 21968.9ms | ActiveRecord: 0.3ms | Allocations: 3853223)
+Started GET "/assets/application-38bcaf3016ad2a84e32fb303e76e77a8141133238eb9d14d40c1cceea0bddc0d.css" for 127.0.0.1 at 2019-10-30 11:18:24 -0400
+Started GET "/users/298486374/edit" for 127.0.0.1 at 2019-10-30 11:18:25 -0400
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"298486374"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  Rendering users/edit.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 29.6ms | Allocations: 2987)
+  Rendered users/edit.html.erb within layouts/application (Duration: 32.7ms | Allocations: 3377)
+Completed 200 OK in 75ms (Views: 68.6ms | ActiveRecord: 0.4ms | Allocations: 10321)
+  [1m[35m (0.3ms)[0m  [1m[31mrollback transaction[0m
+[Webpacker] Compiled all packs in /Users/chuanruizhu/Desktop/personal information/neeva/acme_search/public/packs-test
+Completed 200 OK in 22783ms (Views: 22768.1ms | ActiveRecord: 0.2ms | Allocations: 3853223)
+Started GET "/assets/application-38bcaf3016ad2a84e32fb303e76e77a8141133238eb9d14d40c1cceea0bddc0d.css" for 127.0.0.1 at 2019-10-30 11:18:25 -0400
+Started PATCH "/users/298486374" for 127.0.0.1 at 2019-10-30 11:18:26 -0400
+Processing by UsersController#update as HTML
+  Parameters: {"user"=>{"username"=>"MyString", "fullname"=>"MyString", "password"=>"[FILTERED]"}, "commit"=>"Update User", "id"=>"298486374"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) AND "users"."id" != ? LIMIT ?[0m  [["username", "MyString"], ["id", 298486374], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  Rendering users/edit.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 5.8ms | Allocations: 1297)
+  Rendered users/edit.html.erb within layouts/application (Duration: 6.5ms | Allocations: 1395)
+Completed 200 OK in 42ms (Views: 29.5ms | ActiveRecord: 1.1ms | Allocations: 9833)
+Started GET "/users/new" for 127.0.0.1 at 2019-10-30 11:18:26 -0400
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 14.3ms | Allocations: 2945)
+  Rendered users/new.html.erb within layouts/application (Duration: 17.4ms | Allocations: 3288)
+Completed 200 OK in 47ms (Views: 43.5ms | ActiveRecord: 0.0ms | Allocations: 11090)
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+Started POST "/users" for 127.0.0.1 at 2019-10-30 11:18:27 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"MyString", "fullname"=>"MyString", "password"=>"[FILTERED]"}, "commit"=>"Create User"}
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "MyString"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 6.0ms | Allocations: 1236)
+  Rendered users/new.html.erb within layouts/application (Duration: 6.5ms | Allocations: 1305)
+Completed 200 OK in 37ms (Views: 28.5ms | ActiveRecord: 0.7ms | Allocations: 9493)
+  [1m[35m (0.3ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixtures Load (0.5ms)[0m  [1m[31mDELETE FROM "preferences";
+DELETE FROM "users";
+INSERT INTO "preferences" ("id", "term", "times", "user_id", "created_at", "updated_at") VALUES (980190962, 'MyString', 1, 980190962, '2019-10-30 15:19:39.169446', '2019-10-30 15:19:39.169446');
+INSERT INTO "preferences" ("id", "term", "times", "user_id", "created_at", "updated_at") VALUES (298486374, 'MyString', 1, 298486374, '2019-10-30 15:19:39.169446', '2019-10-30 15:19:39.169446');
+INSERT INTO "users" ("id", "username", "fullname", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', '2019-10-30 15:19:39.170996', '2019-10-30 15:19:39.170996');
+INSERT INTO "users" ("id", "username", "fullname", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyString', '2019-10-30 15:19:39.170996', '2019-10-30 15:19:39.170996')[0m
+  [1m[35m (6.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------
+UsersTest: test_creating_a_User
+-------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/users" for 127.0.0.1 at 2019-10-30 11:19:40 -0400
+Processing by UsersController#index as HTML
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (Duration: 4.3ms | Allocations: 906)
+Completed 200 OK in 1270ms (Views: 1260.5ms | ActiveRecord: 0.2ms | Allocations: 1390754)
+Started GET "/assets/application-38bcaf3016ad2a84e32fb303e76e77a8141133238eb9d14d40c1cceea0bddc0d.css" for 127.0.0.1 at 2019-10-30 11:19:41 -0400
+Started GET "/users/new" for 127.0.0.1 at 2019-10-30 11:19:42 -0400
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 5.6ms | Allocations: 2946)
+  Rendered users/new.html.erb within layouts/application (Duration: 7.6ms | Allocations: 4006)
+Completed 200 OK in 18ms (Views: 17.0ms | ActiveRecord: 0.0ms | Allocations: 10920)
+Started POST "/users" for 127.0.0.1 at 2019-10-30 11:19:42 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"MyString", "fullname"=>"MyString", "password"=>"[FILTERED]"}, "commit"=>"Create User"}
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "MyString"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 2.3ms | Allocations: 1236)
+  Rendered users/new.html.erb within layouts/application (Duration: 2.5ms | Allocations: 1305)
+Completed 200 OK in 15ms (Views: 10.6ms | ActiveRecord: 0.3ms | Allocations: 9489)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------
+UsersTest: test_updating_a_User
+-------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/users" for 127.0.0.1 at 2019-10-30 11:19:45 -0400
+Processing by UsersController#index as HTML
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (Duration: 0.9ms | Allocations: 394)
+Completed 200 OK in 9ms (Views: 8.8ms | ActiveRecord: 0.1ms | Allocations: 6997)
+Started GET "/users/298486374/edit" for 127.0.0.1 at 2019-10-30 11:19:45 -0400
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"298486374"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  Rendering users/edit.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 1.7ms | Allocations: 1005)
+  Rendered users/edit.html.erb within layouts/application (Duration: 2.5ms | Allocations: 1248)
+Completed 200 OK in 15ms (Views: 12.9ms | ActiveRecord: 0.1ms | Allocations: 9410)
+Started PATCH "/users/298486374" for 127.0.0.1 at 2019-10-30 11:19:45 -0400
+Processing by UsersController#update as HTML
+  Parameters: {"user"=>{"username"=>"MyString", "fullname"=>"MyString", "password"=>"[FILTERED]"}, "commit"=>"Update User", "id"=>"298486374"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) AND "users"."id" != ? LIMIT ?[0m  [["username", "MyString"], ["id", 298486374], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  Rendering users/edit.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 2.7ms | Allocations: 1282)
+  Rendered users/edit.html.erb within layouts/application (Duration: 3.0ms | Allocations: 1379)
+Completed 200 OK in 16ms (Views: 11.0ms | ActiveRecord: 0.6ms | Allocations: 9403)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------
+UsersTest: test_visiting_the_index
+----------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/users" for 127.0.0.1 at 2019-10-30 11:19:48 -0400
+Processing by UsersController#index as HTML
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (Duration: 0.7ms | Allocations: 392)
+Completed 200 OK in 15ms (Views: 14.2ms | ActiveRecord: 0.1ms | Allocations: 6995)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
